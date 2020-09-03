@@ -33,7 +33,7 @@ urlpatterns = [
         view=views.UpdateProfileView.as_view(),
         name='update'
     ) ,
-	# Posts poner esta ruta abajo ya que el archivo se lee de arriba hacia abajo y se puede confundir 
+
     path(
         route='<str:username>/',
         view=views.UserDetailView.as_view(),

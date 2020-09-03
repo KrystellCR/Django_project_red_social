@@ -32,26 +32,18 @@ class SignupForm(forms.Form):
         widget=forms.EmailInput()
     )
 	
-	#CUANDO QUIERES VALIDAR UN CAMPO APARTE USAS LA FUNCION CLEAN_FIELD
+
     def clean_username(self):
         """Username must be unique."""
-		
-		#toma el dato de 'username'
         username = self.cleaned_data['username']
-		#checa si en la tabla ya existe el usuario 
         username_taken = User.objects.filter(username=username).exists()
         if username_taken:
-			#si existe lanzamos una excepcion
             raise forms.ValidationError('Username is already in use.')
-		#SIEMPRE SE DEBE DE REGRESAR EL VALOR CUANDO ESTAS USANDO UNA VALIDACION
-		#SI NO HAY ERROR REGRESAS EL USERNAME
         return username
 
-	#para validar un campo que depende de otro 
+
     def clean(self):
         """Verify password confirmation match."""
-			
-		#super una forma de llamar a clean antes de ser sobre escrito
         data = super().clean()
 
         password = data['password']
@@ -66,9 +58,6 @@ class SignupForm(forms.Form):
         """Create user and profile."""
         data = self.cleaned_data
         data.pop('password_confirmation')
-
-		#COPIA TODO EL DICCIONARIO CON **dATA
-		#**D
         user = User.objects.create_user(**data)
         profile = Profile(user=user)
         profile.save()

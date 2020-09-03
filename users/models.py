@@ -13,8 +13,7 @@ class Profile(models.Model):
 	website = models.URLField(max_length=200,blank=True)
 	biography = models.TextField(blank=True)
 	phone_number = models.CharField(max_length=20,blank=True)
-	
-	#jango no guarda imagenes , solo guarda referencias de la imagen
+
 	picture = models.ImageField(
 		upload_to='users/pictures',
 		blank=True,
@@ -24,7 +23,6 @@ class Profile(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	modified = models.DateTimeField(auto_now=True)
 	
-	#para regresar un string en lugar de un object con id cuando estamso en la cosola
 	
 	def __str__(self):
 		"""return a string username """
